@@ -19,8 +19,11 @@
 
   <!--  CSS -->
   <!-- Latest compiled and minified Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link href="css/style.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Codystar|Patrick+Hand|Raleway|Raleway+Dots|Zilla+Slab+Highlight:700" rel="stylesheet">
+  
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,17 +35,58 @@
 
 <body>
   <div class='container'>
+    <div class='row' id='hero'>
+      <div class='col-12 text-center'>
+        <h1 class='display-1' id='header'>Flippy FlipDot</h1>
+      </div>
+    </div>
     <div class='row'>
       <div class='canvas-div'>
         <canvas class="dots center-block">Your browser does not support canvas.</canvas>
       </div>
     </div>
+    <div class='row' id='controls'>
+      <div class='col-6' id='write-text'>
+        <h3 id='write-text-label' class='text-center'>Write Text</h3>
+        <form>
+          <div class='form-group row'>
+            <label for='write-text-font' class='col-2 col-form-label'>Font</label>
+            <div class='col-10'>
+              <input class="form-control" id="write-text-font"></input>
+            </div>
+          </div>
+          <div class='form-group row'>
+            <label for='write-text-refresh' class='col-2 col-form-label'>Refresh</label>
+            <div class='col-10'>
+              <input class="form-control" id="write-text-refresh"></input>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="write-text-msg" id='write-text-label' class='col-2 col-form-label'>Text</label>
+            <div class='col-10'>
+              <textarea class="form-control" id="write-text-msg" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class='col-12 text-right'>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class='col-6 align-center' id='write-text'>
+        <h3 id='write-text-label' class='text-center'>Functions</h3>
+        <button type="button" class="btn btn-primary">Clear</button>
+        <button type="button" class="btn btn-primary">Fill</button>
+        <button type="button" class="btn btn-primary">Clock</button>
+      </div>
   </div>
 
   <!-- JavaScript -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="js/dots.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

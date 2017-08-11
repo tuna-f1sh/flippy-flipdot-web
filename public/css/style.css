@@ -1,10 +1,41 @@
-/* body { margin: 0; padding: 0; background-color: #181818 }*/
+body { margin: 0; padding: 0; background-color: #181818 }
+
+.btn {
+  font-family: 'Raleway', cursive;
+}
+
+.btn-primary {
+    background: #d2ff4d;
+    color: #000000;
+    border-color: black;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #303030;
+    box-shadow: 0 0 2px #d2ff4d;
+    border-color: #d2ff4d;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #c0c0c0;
+    box-shadow: none;
+    color: #d2ff4d;
+}
 
 .canvas-div {
-  /* margin: 0 auto;*/
   position: relative;
   width: 100%;
-  /* height: 20%;*/
+  margin-top: 10px;
+  height: 25vh;
+}
+
+#header {
+  font-family: 'Codystar', cursive;
+  color: #d2ff4d;
+}
+  
+#hero {
+  margin-top: 40px;
 }
 
 canvas.dots {
@@ -13,5 +44,19 @@ canvas.dots {
   /* left: 0;*/
   /* margin: auto;*/
   width: 100%;
-  height: 150px;
+  /* height: 150px;*/
+  height:100%;
+  outline: solid 4px rgba(255,255,255,0.5);
+  /* padding: 4px;*/
+}
+
+#controls {
+  margin-top: 20px;
+}
+
+#write-text-label {
+  /* font-size: 1.1em;*/
+  font-family: 'Raleway', cursive;
+  color: #d2ff4d;
+  /* text-transform: uppercase;*/
 }
