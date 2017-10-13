@@ -9,9 +9,14 @@
   "author": "John Whittington <node@jbrengineering.co.uk> (http://jbrengineering.co.uk)",
   "license": "GPL-3.0",
   "dependencies": {
-    "express": "^4.15.3",
-    "flipdot-display": "^1.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "flipdot-display": "^1.1.1",
     "serialport": "^5.0.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
   }
 }

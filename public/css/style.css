@@ -1,4 +1,4 @@
-body { margin: 0; padding: 0; background-color: #181818 }
+body { margin: 0; padding: 0; background-color: #181818; color: rgba(255,255,255,0.5) }
 
 .btn {
   font-family: 'Raleway', cursive;
@@ -8,6 +8,10 @@ body { margin: 0; padding: 0; background-color: #181818 }
     background: #d2ff4d;
     color: #000000;
     border-color: black;
+}
+
+.btn-func {
+  width: 100%;
 }
  
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
@@ -35,7 +39,7 @@ body { margin: 0; padding: 0; background-color: #181818 }
 }
   
 #hero {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 canvas.dots {
@@ -59,4 +63,112 @@ canvas.dots {
   font-family: 'Raleway', cursive;
   color: #d2ff4d;
   /* text-transform: uppercase;*/
+}
+
+footer {
+  margin-top: 20px;
+}
+
+.footer-text {
+  font-size: 0.8em;
+}
+
+.footer-text a {
+  color: rgba(255,255,255,0.3);
+}
+
+.clear-col {
+  margin-top: 50px;
+}
+
+#clear-btn {
+  width: 60%;
+  height: 60px;
+}
+
+#send-btn {
+  width: 40%;
+}
+
+.ctrl-col {
+  border-left: rgba(255,255,255,0.5) solid 2px;
+  padding:0px;
+}
+
+/* Back Pulse */
+@-webkit-keyframes hvr-back-pulse {
+  10% {
+    background-color: rgba(210,255,77, 0.4);
+  }
+}
+@keyframes hvr-back-pulse {
+  10% {
+    background-color: rgba(210,255,77, 0.4);
+  }
+}
+.hvr-back-pulse {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  overflow: hidden;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-back-pulse:hover, .hvr-back-pulse:focus, .hvr-back-pulse:active {
+  -webkit-animation-name: hvr-back-pulse;
+  animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-color: #303030;
+  background-color: #303030;
+  color: white;
+}
+
+/* Buzz */
+@-webkit-keyframes hvr-buzz {
+  50% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  100% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+}
+@keyframes hvr-buzz {
+  50% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  100% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+}
+.hvr-buzz {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+}
+.hvr-buzz:hover, .hvr-buzz:focus, .hvr-buzz:active {
+  -webkit-animation-name: hvr-buzz;
+  animation-name: hvr-buzz;
+  -webkit-animation-duration: 0.15s;
+  animation-duration: 0.15s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }

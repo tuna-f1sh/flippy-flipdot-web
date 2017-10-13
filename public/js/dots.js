@@ -7,6 +7,9 @@ var dotOff = '#303030';
 var dotMargin = 0;
 var numRows = 7;
 var numCols = 56;
+var clock = false;
+var glitter = false;
+var twitter = false;
 
 // Setup (explained earlier)
 var canvas = $('canvas.dots');
@@ -80,9 +83,21 @@ function getMousePos(canvas, evt) {
 }
 
 $('form').submit(function(){
-  socket.emit('write text', $('#write-text-msg').val());
+  var e = document.getElementById('write-text-font');
+  var font = e.options[e.selectedIndex].text;
+  socket.emit('write text', $('#write-text-msg').val(), font, parseInt($('#write-text-refresh').val()) );
   return false;
 });
+
+function populateFonts(fonts) {
+  var sel = document.getElementById('write-text-font');
+  for(var i = 0; i < fonts.length; i++) {
+      var opt = document.createElement('option');
+      opt.innerHTML = fonts[i];
+      opt.value = fonts[i];
+      sel.appendChild(opt);
+  }
+}
 
 function updateDisplay(data) {
   console.log('update');
@@ -99,3 +114,68 @@ function updateDisplay(data) {
 socket.on('update', function(data) {
   updateDisplay(data);
 });
+
+socket.on('fill-fonts', function(fonts) {
+  populateFonts(fonts);
+});
+
+function clearDisplay() {
+  socket.emit('clear');
+  if (clock) {
+    clock = false;
+    $('#clock-btn').removeAttr('style');
+    $('#clock-btn').text("Clock")
+  }
+  if (glitter) {
+    glitter = false;
+    $('#glitter-btn').removeAttr('style');
+    $('#glitter-btn').text("Glitter")
+  }
+}
+
+function fillDisplay() {
+  socket.emit('fill');
+}
+
+function clockTask() {
+  socket.emit('clock');
+  var id = $('#clock-btn');
+
+  if (!clock) {
+    clock = true;
+    id.css('color',"red")
+    id.text("stop")
+  } else {
+    clock = false;
+    id.removeAttr('style');
+    id.text("Clock")
+  }
+}
+
+function glitterTask() {
+  socket.emit('glitter');
+  var id = $('#glitter-btn');
+
+  if (!glitter) {
+    glitter = true;
+    id.css('color',"red")
+    id.text("stop")
+  } else {
+    glitter = false;
+    id.removeAttr('style');
+    id.text("Glitter")
+  }
+}
+
+function twitterSet() {
+  twitter = !twitter;
+  socket.emit('twitter', twitter);
+  if (twitter) {
+    $('#twitter-btn').text('Twitter: On')
+  } else {
+    $('#twitter-btn').text('Twitter: Off')
+  }
+}
+
+// sent page loaded event
+socket.emit('loaded');
