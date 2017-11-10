@@ -29,6 +29,7 @@ var flipdot_stream = null
 var arttrail_stream = null
 
 var clockTask = null
+var resumeClock = false
 var glitterTask = null
 var matrix = null
 var fonts = null
@@ -88,6 +89,7 @@ flippy.once("open", function() {
       if (clockTask !== null) {
         clearInterval(clockTask);
         clockTask = null;
+        resumeClock = false;
       }
       if (glitterTask !== null) {
         clearInterval(glitterTask);
@@ -102,14 +104,7 @@ flippy.once("open", function() {
       flippy.send();
     });
 
-    socket.on('clock', function() {
-      if (clockTask === null) {
-        clockTask = startClock(true, font='3x5', offset = [0,12]);
-      } else {
-        clearInterval(clockTask);
-        clockTask = null;
-      }
-    });
+    socket.on('clock', startClockTask() );
 
     socket.on('glitter', function() {
       if (glitterTask === null) {
@@ -124,6 +119,13 @@ flippy.once("open", function() {
       var display = decode(flippy.packet.data);
       matrix = dataToMatrix(display);
       io.emit('update', display);
+    });
+
+    // Resume clock if running
+    flippy.on('free', function() {
+      if (resumeClock) {
+        startClockTask();
+      }
     });
 
     socket.on('loaded', function() {
@@ -207,6 +209,15 @@ function startClock(seconds = false, font = 'Banner', offset = [0,0], invert = f
   return task;
 }
 
+function startClockTask() {
+  if (clockTask === null) {
+    clockTask = startClock(true, font='3x5', offset = [0,12]);
+  } else {
+    clearInterval(clockTask);
+    clockTask = null;
+  }
+}
+
 function startGlitter(update = 1000, invert = false) {
   var task = setInterval( function() {
     for (var j = 0; j < flippy.columns; j++) {
@@ -222,6 +233,13 @@ function startGlitter(update = 1000, invert = false) {
 }
 
 function displayTweet(event, user) {
+  // stop clock task if running and resume after writting
+  if (clockTask !== null) {
+    clearInterval(clockTask);
+    clockTask = null;
+    resumeClock = true;
+  }
+
   words = event.text.split(' ')
   // trim if mentioning
   if (words[0] === user) {
