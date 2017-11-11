@@ -104,7 +104,7 @@ flippy.once("open", function() {
       flippy.send();
     });
 
-    socket.on('clock', startClockTask() );
+    socket.on('clock', startClockTask );
 
     socket.on('glitter', function() {
       if (glitterTask === null) {
@@ -123,8 +123,9 @@ flippy.once("open", function() {
 
     // Resume clock if running
     flippy.on('free', function() {
-      if (resumeClock) {
-        startClockTask();
+      if (resumeClock && clockTask === null) {
+        setTimeout( startClockTask, 5000 ); // restart clock task after 5s delay
+        resumeClock = false;
       }
     });
 
