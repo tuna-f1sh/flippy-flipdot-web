@@ -18,6 +18,7 @@
   "author": "John Whittington <node@jbrengineering.co.uk> (http://jbrengineering.co.uk)",
   "license": "GPL-3.0",
   "dependencies": {
+    "dateformat": "^3.0.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "figlet": "^1.2.0",
