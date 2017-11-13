@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "description": "Web app controller for Hanover FlipDot display",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuna-f1sh/flippy-flipdot-web"
+  },
+  "keywords": [
+    "flipdot",
+    "hanover",
+    "rs485"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
