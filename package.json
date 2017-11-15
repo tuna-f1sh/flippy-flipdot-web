@@ -1,6 +1,6 @@
 {
   "name": "flippy-dotter",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "Web app controller for Hanover FlipDot display",
   "main": "app.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "John Whittington <node@jbrengineering.co.uk> (http://jbrengineering.co.uk)",
   "license": "GPL-3.0",
   "dependencies": {
+    "args": "^3.0.7",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "flipdot-display": "^1.1.1",

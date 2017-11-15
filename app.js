@@ -6,17 +6,33 @@ var io = require('socket.io')(server);
 var figlet = require('figlet');
 var Twitter = require('twitter');
 require('dotenv').config()
+var args = require('args')
+
+args
+  .option('port', 'The serial device to attach FlipDot', '/dev/ttyUSB0')
+  .option('emulate', 'Emulate a flip-dot display', false)
+  .option('rows', 'Number of rows on display', 7)
+  .option('columns', 'Number of columns on display', 56)
+  .option('address', 'Address of display (sent in header)', 5)
+  .option('invert', 'Invert display', false)
+
+const flags = args.parse(process.argv)
 
 // Flipdot stuff
 var dateFormat = require('dateformat')
 var FlipDot = require('flipdot-display')
-// var flippy = new FlipDot('/dev/tty.wchusbserial1420',5,7,56)
-const SerialPort = require('serialport/test')
-const MockBinding = SerialPort.Binding
+// Mock serial port in case emulating
 
 // Make the port
-MockBinding.createPort('/dev/ROBOT', { echo: true })
-var flippy = new FlipDot('/dev/ROBOT',5,7,56)
+// Emulate if no args passed or asked to
+if (flags.emulate ||  (process.argv.length < 3)) {
+  const SerialPort = require('serialport/test')
+  const MockBinding = SerialPort.Binding
+  MockBinding.createPort('/dev/ROBOT', { echo: true })
+  var flippy = new FlipDot('/dev/ROBOT',flags.address,flags.rows,flags.columns);
+} else {
+  var flippy = new FlipDot(flags.port,flags.address,flags.rows,flags.columns);
+}
 
 // Twitter streams
 var client = new Twitter({
@@ -131,6 +147,7 @@ flippy.once("open", function() {
 
     socket.on('loaded', function() {
       io.emit('fill-fonts',fonts);
+      io.emit('raster', [flags.rows, flags.columns]);
     });
 
     socket.on('twitter', function(set) {
