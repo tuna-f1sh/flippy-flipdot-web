@@ -74,6 +74,8 @@ flippy.on("error", function(err) {
 });
 
 flippy.once("open", function() {
+  flippy.writeText('Flipping On!', '3x5');
+  flippy.send();
 
   io.on('connection', function(socket){
     flippy.clear();
