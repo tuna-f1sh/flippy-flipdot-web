@@ -16,6 +16,8 @@ node app.js --help
 
 ```
 node app.js --emulate
+# Alternatively
+npm run emulate
 ```
 
 ## Debug
