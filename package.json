@@ -13,16 +13,15 @@
     "rs485"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js -p /dev/ttyUSB0",
+    "emulate": "node app.js -e"
   },
   "author": "John Whittington <node@jbrengineering.co.uk> (http://jbrengineering.co.uk)",
   "license": "GPL-3.0",
   "dependencies": {
     "args": "^3.0.7",
     "dateformat": "^3.0.2",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "flipdot-display": "^1.1.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "figlet": "^1.2.0",
