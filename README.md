@@ -3,6 +3,8 @@
 Emulator and GUI for my [Hanover Flipdot Display
 driver](https://github.com/tuna-f1sh/node-flipdot)
 
+[Live emulation demo](http://flipdot.jbrengineering.co.uk)
+
 ## Install
 
 ```
