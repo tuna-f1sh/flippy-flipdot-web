@@ -8,6 +8,9 @@ var Twitter = require('twitter');
 require('dotenv').config()
 var args = require('args')
 
+// process.env.PORT lets the port be set by Heroku
+var server_port = process.env.PORT || 3000;
+
 args
   .option('port', 'The serial device to attach FlipDot', '/dev/ttyUSB0')
   .option('emulate', 'Emulate a flip-dot display', false)
@@ -56,8 +59,8 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-server.listen(3000, function(){
-  console.log('listening on *:3000')
+server.listen(server_port, function(){
+  console.log('listening on port: ' + server_port)
 })
 
 figlet.fonts(function(err, figfonts) {
