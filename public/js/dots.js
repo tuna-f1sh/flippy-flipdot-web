@@ -111,12 +111,23 @@ function updateDisplay(data) {
   }
 }
 
-socket.on('update', function(data) {
+socket.on('update', function(data, tasks) {
+  // Update display
   updateDisplay(data);
+  // Update display buttons
+  clock = tasks[0];
+  glitter = tasks[1];
+  twitter = tasks[2];
+  clockTask(true);
+  glitterTask(true);
+  twitterSet(true);
 });
 
 socket.on('fill-fonts', function(fonts) {
   populateFonts(fonts);
+});
+
+socket.on('tasks', function(status) {
 });
 
 function clearDisplay() {
@@ -137,39 +148,43 @@ function fillDisplay() {
   socket.emit('fill');
 }
 
-function clockTask() {
-  socket.emit('clock');
+function clockTask(refresh = false) {
+  if (!refresh) {
+    clock = !clock;
+    socket.emit('clock');
+  }
   var id = $('#clock-btn');
 
-  if (!clock) {
-    clock = true;
+  if (clock) {
     id.css('color',"red")
     id.text("stop")
   } else {
-    clock = false;
     id.removeAttr('style');
     id.text("Clock")
   }
 }
 
-function glitterTask() {
-  socket.emit('glitter');
+function glitterTask(refresh = false) {
+  if (!refresh) {
+    glitter = !glitter
+    socket.emit('glitter');
+  }
   var id = $('#glitter-btn');
 
-  if (!glitter) {
-    glitter = true;
+  if (glitter) {
     id.css('color',"red")
     id.text("stop")
   } else {
-    glitter = false;
     id.removeAttr('style');
     id.text("Glitter")
   }
 }
 
-function twitterSet() {
-  twitter = !twitter;
-  socket.emit('twitter', twitter);
+function twitterSet(refresh = false) {
+  if (!refresh) {
+    twitter = !twitter;
+    socket.emit('twitter', twitter);
+  }
   if (twitter) {
     $('#twitter-btn').text('Twitter: On')
   } else {

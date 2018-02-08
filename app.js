@@ -59,6 +59,13 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/display/:text', function(req, res){
+  console.log('Sending text from GET request: ' + req.params.text);
+  flippy.writeText(req.params.text);
+  flippy.send;
+  res.send('Sent to display: ' + req.params.text);
+});
+
 server.listen(server_port, function(){
   console.log('listening on port: ' + server_port)
 })
@@ -137,9 +144,10 @@ flippy.once("open", function() {
     });
 
     flippy.on('sent', function() {
-      var display = decode(flippy.packet.data);
-      matrix = dataToMatrix(display);
-      io.emit('update', display);
+      var display = flippy.decode();
+      matrix = flippy.dataToMatrix();
+      var tasks = [(clockTask !== null), (glitterTask !== null), (flipdot_stream !== null)];
+      io.emit('update', display, tasks);
     });
 
     // Resume clock if running
@@ -153,6 +161,10 @@ flippy.once("open", function() {
     socket.on('loaded', function() {
       io.emit('fill-fonts',fonts);
       io.emit('raster', [flags.rows, flags.columns]);
+      var display = flippy.decode();
+      matrix = flippy.dataToMatrix();
+      var tasks = [(clockTask !== null), (glitterTask !== null), (flipdot_stream !== null)];
+      io.emit('update', display, tasks);
     });
 
     socket.on('twitter', function(set) {
@@ -179,38 +191,6 @@ flippy.once("open", function() {
 
    
 });
-
-function decode(data) {
-  var hex_data = [];
-  for (var i = 0; i < data.length; i += 2) {
-    hex_data.push( asciiToByte( [data[i], data[i+1]] ) );
-  }
-
-  return hex_data;
-}
-
-function dataToMatrix(hex_data) {
-  var matrix = flippy.matrix();
-
-  for (var j = 0; j < flippy.columns; j++) {
-    // walk bits in byte constructing hex value
-    for (var i = 0; i < flippy.rows; i++) {
-      var bit = (hex_data[j] >> i) & 0x01;
-      matrix[i][j] = bit;
-    }
-  }
-
-  return matrix;
-}
-
-function asciiToByte(chars) {
-  var b1 = String.fromCharCode(chars[1]);
-  var b2 = String.fromCharCode(chars[0]);
-
-  b2 = b2.concat(b1);
-
-  return parseInt(b2,16);
-}
 
 function startClock(seconds = false, font = 'Banner', offset = [0,0], invert = false) {
   var format = "HH:MM"
