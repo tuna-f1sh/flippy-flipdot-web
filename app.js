@@ -96,7 +96,7 @@ flippy.once("open", function() {
       flippy.send(flippy.writeMatrix(matrix));
     });
 
-    socket.on('write text', function(text, font, refresh) {
+    socket.on('write text', function(text, font = 'Banner3', refresh) {
       // data = flippy.writeText(text);
       var lines = text.split('\n');
       var frames = [];
@@ -170,19 +170,19 @@ flippy.once("open", function() {
     socket.on('twitter', function(set) {
       if (set && (flipdot_stream === null) ) {
         flipdot_stream = client.stream('statuses/filter', {track: '@FlipDotDisplay'});
-        arttrail_stream = client.stream('statuses/filter', {track: '@frontroomart'});
+        // arttrail_stream = client.stream('statuses/filter', {track: '@frontroomart'});
         flipdot_stream.on('data', (event) => displayTweet(event, '@FlipDotDisplay') )
-        arttrail_stream.on('data', (event) => displayTweet(event, '@FlipDotDisplay') )
+        // arttrail_stream.on('data', (event) => displayTweet(event, '@FlipDotDisplay') )
         flipdot_stream.on('error', (event) => console.log(event) )
-        arttrail_stream.on('error', (event) => console.log(event) )
+        // arttrail_stream.on('error', (event) => console.log(event) )
         console.log('Twitter listeners added')
       } else {
         flipdot_stream.removeAllListeners('data')
-        arttrail_stream.removeAllListeners('data')
+        // arttrail_stream.removeAllListeners('data')
         flipdot_stream.removeAllListeners('error')
-        arttrail_stream.removeAllListeners('error')
+        // arttrail_stream.removeAllListeners('error')
         flipdot_stream = null;
-        arttrail_stream = null;
+        // arttrail_stream = null;
         console.log('Twitter listeners removed')
       }
     });
